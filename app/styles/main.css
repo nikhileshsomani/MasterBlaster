@@ -1,0 +1,135 @@
+@font-face {
+  font-family: "pn Light";
+  src: url("../fonts/proxima-nova/proximanova-light-webfont.eot");
+  src: url("../fonts/proxima-nova/proximanova-light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/proxima-nova/proximanova-light-webfont.woff") format("woff"), url("../fonts/proxima-nova/proximanova-light-webfont.ttf") format("truetype"), url("../fonts/proxima-nova/proximanova-light-webfont.svg#pn Light") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "pn Regular";
+  src: url("../fonts/proxima-nova/proximanova-regular-webfont.eot");
+  src: url("../fonts/proxima-nova/proximanova-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/proxima-nova/proximanova-regular-webfont.woff") format("woff"), url("../fonts/proxima-nova/proximanova-regular-webfont.ttf") format("truetype"), url("../fonts/proxima-nova/proximanova-regular-webfont.svg#pn Regular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "pn Bold";
+  src: url("../fonts/proxima-nova/proximanova-bold-webfont.eot");
+  src: url("../fonts/proxima-nova/proximanova-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/proxima-nova/proximanova-bold-webfont.woff") format("woff"), url("../fonts/proxima-nova/proximanova-bold-webfont.ttf") format("truetype"), url("../fonts/proxima-nova/proximanova-bold-webfont.svg#pn Bold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "pn extraBold";
+  src: url("../fonts/proxima-nova/proximanova-extrabold.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal; }
+
+@-webkit-keyframes bounceInLeft {
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-3000px, 0, 0);
+    transform: translate3d(-3000px, 0, 0); }
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(25px, 0, 0);
+    transform: translate3d(25px, 0, 0); }
+  75% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0); }
+  90% {
+    -webkit-transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0); }
+  to {
+    -webkit-transform: none;
+    transform: none; } }
+
+@keyframes bounceInLeft {
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-3000px, 0, 0);
+    transform: translate3d(-3000px, 0, 0); }
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(25px, 0, 0);
+    transform: translate3d(25px, 0, 0); }
+  75% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0); }
+  90% {
+    -webkit-transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0); }
+  to {
+    -webkit-transform: none;
+    transform: none; } }
+
+.home-wrap {
+  height: 100vh;
+  background-image: url("../images/mb.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.65;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 40px;
+  color: #fff;
+  font-family: "pn extraBold"; }
+  .home-wrap:nth-child(3) {
+    background-image: url("../images/sachin.jpg"); }
+  .home-wrap:nth-child(5) {
+    background-image: url("../images/god.jpg"); }
+  .home-wrap img {
+    width: 50%;
+    border-radius: 100px; }
+  .home-wrap.ng-enter {
+    animation: bounceInLeft 0.3s; }
+  .home-wrap.ng-enter-active {
+    animation: bounceInLeft 0.3s; }
+
+.stats-action {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .stats-action button {
+    border: 1px solid #fff;
+    background-color: inherit;
+    margin: 15px;
+    padding: 15px;
+    font-size: 16px;
+    color: #fff;
+    font-family: "pn Bold"; }
+    .stats-action button:hover {
+      background-color: #fff;
+      color: #000; }
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+body {
+  font-size: 16px;
+  color: #000;
+  font-family: "pn Regular"; }
+
+h1 {
+  font-size: 60px;
+  color: #fff;
+  font-family: "pn extraBold"; }
+
+button {
+  outline: none;
+  border: 0; }

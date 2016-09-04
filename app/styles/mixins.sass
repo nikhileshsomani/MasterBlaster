@@ -1,0 +1,22 @@
+@mixin flex($justify : false,$align : false)
+    display: flex
+    @if $justify
+        justify-content: $justify
+    @if $align
+        align-items: $align
+
+@mixin font($size : $font-medium,$color : $black,$family : 'pn Regular')
+    font-size: $size
+    color: $color
+    font-family: $family
+
+@mixin font-face($font-family, $file-path,$otf : false, $font-weight : normal, $font-style : normal)
+    @font-face
+        font-family: $font-family
+        @if $otf
+            src : url('#{$file-path}.otf') format("opentype")
+        @else
+            src: url('#{$file-path}.eot')
+            src: url('#{$file-path}.eot?#iefix') format('embedded-opentype'),url('#{$file-path}.woff') format('woff'),url('#{$file-path}.ttf') format('truetype'),url('#{$file-path}.svg##{$font-family}') format('svg')
+        font-weight: $font-weight
+        font-style: $font-style

@@ -1,0 +1,34 @@
+.home-wrap
+	height: 100vh
+	background-image: url('../images/mb.jpg')
+	background-attachment: fixed
+	background-position: center
+	background-size: cover
+	background-repeat: no-repeat
+	opacity: 0.65
+	@include flex(center,center)
+	text-align: center
+	@include font(40px,$color : $white,$family : 'pn extraBold')
+	&:nth-child(3)
+		background-image: url('../images/sachin.jpg')
+	&:nth-child(5)
+		background-image: url('../images/god.jpg')
+	img
+		width: 50%
+		border-radius: 100px
+	&.ng-enter
+		animation: bounceInLeft 0.3s
+	&.ng-enter-active
+		animation: bounceInLeft 0.3s
+
+.stats-action
+	@include flex(center,center)
+	button
+		border: 1px solid $white
+		background-color: inherit
+		margin: 15px
+		padding: 15px
+		@include font($family : 'pn Bold',$color : $white)
+		&:hover
+			background-color: $white
+			color: $black
