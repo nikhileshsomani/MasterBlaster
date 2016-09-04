@@ -1,5 +1,6 @@
 .home-wrap
 	height: 100vh
+	position: relative
 	background-image: url('../images/mb.jpg')
 	background-attachment: fixed
 	background-position: center
@@ -7,8 +8,14 @@
 	background-repeat: no-repeat
 	opacity: 0.65
 	@include flex(center,center)
+	flex-direction: column
 	text-align: center
 	@include font(40px,$color : $white,$family : 'pn extraBold')
+	span
+		margin: 10px
+	&:nth-child(1)
+		span:first-child
+			font-size: 60px
 	&:nth-child(3)
 		background-image: url('../images/sachin.jpg')
 	&:nth-child(5)
@@ -20,6 +27,15 @@
 		animation: bounceInLeft 0.3s
 	&.ng-enter-active
 		animation: bounceInLeft 0.3s
+
+.quote
+	position: absolute
+	bottom: 0
+	right: 0
+	z-index: 10
+	opacity: 1
+	width: 500px
+	@include font(40px,$white,'pn Bold')
 
 .stats-action
 	@include flex(center,center)

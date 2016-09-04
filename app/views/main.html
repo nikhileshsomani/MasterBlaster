@@ -1,15 +1,28 @@
 <div class="home-wrap">
-  <span>{{sachinQuotes[0]}}</span>
+  <span>Sachin Tendulkar</span>
+  <span>Total ODI's :
+    {{totalMatches}}</span>
+  <span>Total Runs :
+    {{totalRuns}}</span>
+  <span class="quote">{{sachinQuotes[0]}}</span>
 </div>
 <div>
   <fusioncharts width="100%" height="400" type="line" dataFormat='json' dataSource="{{runsPerYear}}"></fusioncharts>
 </div>
 <div class="home-wrap">
-  <span>{{sachinQuotes[1]}}</span>
+  <span>Total 100's :
+    {{totalHundreds}}</span>
+  <span>Total 50's :
+    {{totalFifties}}</span>
+  <span>Highest Score : 200</span>
+  <span class="quote">{{sachinQuotes[1]}}</span>
 </div>
 <div class="batting-stat">
   <fusioncharts width="100%" height="400" type="msstackedcolumn2d" dataFormat='json' dataSource="{{countryWiseScore}}"></fusioncharts>
 </div>
 <div class="home-wrap">
   <span>{{sachinQuotes[2]}}</span>
+</div>
+<div class="batting-stat">
+  <fusioncharts width="100%" height="400" type="pie2d" dataFormat='json' dataSource="{{scorePerInnings}}"></fusioncharts>
 </div>

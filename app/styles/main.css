@@ -71,6 +71,7 @@
 
 .home-wrap {
   height: 100vh;
+  position: relative;
   background-image: url("../images/mb.jpg");
   background-attachment: fixed;
   background-position: center;
@@ -80,10 +81,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   text-align: center;
   font-size: 40px;
   color: #fff;
   font-family: "pn extraBold"; }
+  .home-wrap span {
+    margin: 10px; }
+  .home-wrap:nth-child(1) span:first-child {
+    font-size: 60px; }
   .home-wrap:nth-child(3) {
     background-image: url("../images/sachin.jpg"); }
   .home-wrap:nth-child(5) {
@@ -95,6 +101,17 @@
     animation: bounceInLeft 0.3s; }
   .home-wrap.ng-enter-active {
     animation: bounceInLeft 0.3s; }
+
+.quote {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  opacity: 1;
+  width: 500px;
+  font-size: 40px;
+  color: #fff;
+  font-family: "pn Bold"; }
 
 .stats-action {
   display: flex;
