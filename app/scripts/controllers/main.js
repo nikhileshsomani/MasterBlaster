@@ -21,14 +21,18 @@ angular.module('sachinRtApp')
 		$scope.totalCatches = null;
 		$scope.totalHundreds = null;
 		$scope.totalFifties = null;
+		$scope.runsType = "Yearly";
 
 		$scope.sachinQuotes = ['There are two kind of batsmen in the world. One Sachin Tendulkar. Two all the others. - Andy Flower',
-			'I have seen God, he bats at no. 4 for India - Mathew Hayden',
-			'He can play that leg glance with a walking stick also. - Waqar Younis'
+			'I have seen God, he bats at no. 4 for India. - Mathew Hayden',
+			'He can play that leg glance with a walking stick also. - Waqar Younis',
+			'Gentelmen,he is the best batsman I have seen in my life.And unlike most of you, I have seen Bradman bat. - John Woodcock'
 		];
+
 
 		var countriesObject = [],
 			runsPerYear = [],
+			cumulativeRunsPerYear = [],
 			runsPerInnings = [{
 				'label': 'Runs while chasing',
 				'value': 0,
@@ -39,6 +43,7 @@ angular.module('sachinRtApp')
 				'displayValue': "0"
 			}],
 			scoreByTwoHundreds = [],
+			wicketsPerYear = [],
 			scoreByHundreds = [],
 			scoreByFifties = [],
 			scoreByRest = [];
@@ -52,11 +57,26 @@ angular.module('sachinRtApp')
 					"value": null,
 					"displayValue": "0"
 				});
+				if (years.length === 1) {
+					cumulativeRunsPerYear.push({
+						"label": el.date.slice(-4),
+						"value": 0,
+						"displayValue": "0"
+					});
+				} else {
+					cumulativeRunsPerYear.push({
+						"label": el.date.slice(-4),
+						"value": cumulativeRunsPerYear[years.length - 2].value,
+						"displayValue": (parseInt(cumulativeRunsPerYear[years.length - 2].displayValue)).toString()
+					});
+				}
 				yearIdx = years.length - 1;
 			}
 			if (!isNaN(el.batting_score)) {
 				runsPerYear[yearIdx].value += el.batting_score;
-				runsPerYear[yearIdx].displayValue = (parseInt(runsPerYear[yearIdx].displayValue) + 1).toString() + " Matches";
+				cumulativeRunsPerYear[yearIdx].value += el.batting_score;
+				runsPerYear[yearIdx].displayValue = (parseInt(runsPerYear[yearIdx].displayValue) + 1).toString() + " Innings";
+				cumulativeRunsPerYear[yearIdx].displayValue = (parseInt(cumulativeRunsPerYear[yearIdx].displayValue) + 1).toString() + " Innings";
 			}
 		};
 
@@ -66,7 +86,6 @@ angular.module('sachinRtApp')
 				countries.push(el.opposition);
 				countriesObject.push({
 					'label': el.opposition,
-					// 'displayValue': '0'
 				});
 				scoreByTwoHundreds.push({
 					'value': null
@@ -99,6 +118,16 @@ angular.module('sachinRtApp')
 			}
 		};
 
+		var setWickets = function(el) {
+			if (!isNaN(el.wickets)) {
+				wicketsPerYear.push({
+					"label": el.date.slice(-4),
+					"value": el.wickets,
+					"toolText": el.wickets + '/' + el.runs_conceded + '{br}' + 'v ' + el.opposition + '{br}' + el.ground + '{br}' + el.date
+				});
+			}
+		};
+
 		var setRunsPerInning = function(el) {
 			if (!isNaN(el.batting_score)) {
 				if (el.batting_innings === "2nd") {
@@ -118,14 +147,28 @@ angular.module('sachinRtApp')
 			if (!isNaN(el.wickets)) {
 				$scope.totalWickets += el.wickets;
 			}
+			if (!isNaN(el.catches)) {
+				$scope.totalCatches += el.catches;
+			}
 			setRunsPerYear(el);
 			setRunsPerCountry(el);
-			setRunsPerInning(el);
+			setWickets(el);
+			// setRunsPerInning(el);
 		});
+
+		$scope.changeScoreBasis = function(type) {
+			if (type === 'overall') {
+				$scope.runsPerYear.chart.subcaption = 'Overall';
+				$scope.runsPerYear.data = cumulativeRunsPerYear;
+			} else {
+				$scope.runsPerYear.chart.subcaption = 'Yearly';
+				$scope.runsPerYear.data = runsPerYear;
+			}
+		};
 
 		$scope.countryWiseScore = {
 			'chart': {
-				'caption': 'Sachin\'s Score against different contries',
+				'caption': 'Sachin\'s Score against different countries',
 				'xaxisname': 'Countries',
 				'yaxisname': 'Runs',
 				'paletteColors': '#0075c2,#45AFF5,#2C8A56,#1aaf5d,#50DE90',
@@ -134,6 +177,9 @@ angular.module('sachinRtApp')
 				'toolTipColor': '#fff',
 				'toolTipBorderAlpha': '10',
 				'showToolTipShadow': '1',
+				'adjustDiv': 0,
+				'yAxisMinValue': 0,
+				'yAxisMaxValue': 3200,
 				'bgColor': '#ffffff',
 				'borderAlpha': '20',
 				'showCanvasBorder': '0',
@@ -171,11 +217,12 @@ angular.module('sachinRtApp')
 
 		$scope.runsPerYear = {
 			"chart": {
-				"caption": "SACHIN TENDULKAR'S ODI CAREER",
-				"subcaption": "(Batting)",
+				"caption": "SACHIN TENDULKAR'S ODI CAREER(Batting)",
+				"subcaption": 'Yearly',
 				"xAxisName": "Years",
 				"yAxisName": "Runs",
 				"lineThickness": "2",
+				'formatNumber': false,
 				"paletteColors": "#0075c2",
 				"baseFontColor": "#333333",
 				"baseFont": "Helvetica Neue,Arial",
@@ -205,38 +252,36 @@ angular.module('sachinRtApp')
 			"data": runsPerYear,
 		};
 
-		$scope.scorePerInnings = {
+		$scope.wickets = {
 			"chart": {
-				"caption": "Runs scored per innings",
-				"paletteColors": "#0075c2,#1aaf5d,#f2c500,#f45b00,#8e0000",
+				"caption": "SACHIN TENDULKAR'S ODI CAREER(Bowling)",
+				"xAxisName": "Matches",
+				"yAxisName": "Wickets",
+				"paletteColors": "#0075c2",
+				'adjustDiv': 0,
+				'yAxisMinValue': 0,
+				'yAxisMaxValue': 5,
+				'toolTipBgColor': '#000',
+				'toolTipColor': '#fff',
+				'toolTipBorderAlpha': '10',
+				'showToolTipShadow': '1',
 				"bgColor": "#ffffff",
-				"showBorder": "0",
-				"use3DLighting": "0",
-				"showShadow": "0",
-				"enableSmartLabels": "0",
-				"startingAngle": "0",
-				"showPercentValues": "1",
-				"showPercentInTooltip": "0",
-				"decimals": "1",
-				"captionFontSize": "14",
-				"subcaptionFontSize": "14",
+				"borderAlpha": "20",
+				"canvasBorderAlpha": "0",
+				"usePlotGradientColor": "0",
+				"plotBorderAlpha": "10",
+				"rotatevalues": "1",
+				"showValues": '0',
+				"showXAxisLine": "1",
+				"xAxisLineColor": "#999999",
+				"divlineColor": "#999999",
+				"divLineDashed": "1",
+				"showAlternateHGridColor": "0",
 				"subcaptionFontBold": "0",
-				"toolTipColor": "#ffffff",
-				"toolTipBorderThickness": "0",
-				"toolTipBgColor": "#000000",
-				"toolTipBgAlpha": "80",
-				"toolTipBorderRadius": "2",
-				"toolTipPadding": "5",
-				"showHoverEffect": "1",
-				"showLegend": "1",
-				"legendBgColor": "#ffffff",
-				"legendBorderAlpha": "0",
-				"legendShadow": "0",
-				"legendItemFontSize": "10",
-				"legendItemFontColor": "#666666",
-				"useDataPlotColorForLabels": "1"
+				"subcaptionFontSize": "14"
 			},
-			"data": runsPerInnings
+			"data": wicketsPerYear
 		};
+
 
 	});

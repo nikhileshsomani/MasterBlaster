@@ -13,11 +13,13 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   </head>
   <body ng-app="sachinRtApp">
 
     <!-- <header ui-view="header"></header> -->
     <div class="load-app" ng-if="loadingCSV">
+        <img src="https://d13yacurqjgara.cloudfront.net/users/12755/screenshots/1037374/hex-loader2.gif" alt="loading" />
         loading csv ...
     </div>
     <div ui-view="content">

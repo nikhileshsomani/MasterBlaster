@@ -1,18 +1,32 @@
 <div class="home-wrap">
   <span>Sachin Tendulkar</span>
-  <span>Total ODI's :
+  <span>Total ODIs :
     {{totalMatches}}</span>
   <span>Total Runs :
     {{totalRuns}}</span>
   <span class="quote">{{sachinQuotes[0]}}</span>
 </div>
-<div>
+<div class='runs-chart'>
+  <div class="dropdown">
+    <label for="runs">Score's Basis :</label>
+    <input type="text" name="score basis" id="runs" ng-model="runsPerYear.chart.subcaption" disabled autocomplete="off" required>
+    <i class="fa fa-angle-down" ng-click="showGraphType = true" ng-show="!showGraphType"></i>
+    <i class="fa fa-angle-up" ng-click="showGraphType = false" ng-show="showGraphType"></i>
+    <div class="select-options ng-hide" ng-show="showGraphType" ng-click="showGraphType = false">
+      <div ng-click="changeScoreBasis('overall')">
+        Overall
+      </div>
+      <div ng-click="changeScoreBasis('yearly')">
+        Yearly
+      </div>
+    </div>
+  </div>
   <fusioncharts width="100%" height="400" type="line" dataFormat='json' dataSource="{{runsPerYear}}"></fusioncharts>
 </div>
 <div class="home-wrap">
-  <span>Total 100's :
+  <span>Total 100s :
     {{totalHundreds}}</span>
-  <span>Total 50's :
+  <span>Total 50s :
     {{totalFifties}}</span>
   <span>Highest Score : 200</span>
   <span class="quote">{{sachinQuotes[1]}}</span>
@@ -21,8 +35,23 @@
   <fusioncharts width="100%" height="400" type="msstackedcolumn2d" dataFormat='json' dataSource="{{countryWiseScore}}"></fusioncharts>
 </div>
 <div class="home-wrap">
-  <span>{{sachinQuotes[2]}}</span>
+  <span>Total Wickets :
+    {{totalWickets}}</span>
+  <span>Total Catches :
+    {{totalCatches}}</span>
+  <span class="quote">{{sachinQuotes[2]}}</span>
 </div>
 <div class="batting-stat">
-  <fusioncharts width="100%" height="400" type="pie2d" dataFormat='json' dataSource="{{scorePerInnings}}"></fusioncharts>
+  <fusioncharts width="100%" height="400" type="column2d" dataFormat='json' dataSource="{{wickets}}"></fusioncharts>
 </div>
+<div class="home-wrap">
+  <span>Total 100s :
+    {{totalHundreds}}</span>
+  <span>Total 50s :
+    {{totalFifties}}</span>
+  <span>Highest Score : 200</span>
+  <span class="quote">{{sachinQuotes[3]}}</span>
+</div>
+<!-- <div class="batting-stat">
+  <fusioncharts width="100%" height="400" type="pie2d" dataFormat='json' dataSource="{{scorePerInnings}}"></fusioncharts>
+</div> -->

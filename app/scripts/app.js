@@ -34,10 +34,6 @@ angular
 		$stateProvider
 			.state('root', {
 				views: {
-					'header': {
-						templateUrl: 'views/header.html',
-						controller: 'HeaderCtrl'
-					},
 					'content': {
 						template: '<div ui-view></div>'
 					}
