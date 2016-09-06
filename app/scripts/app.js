@@ -12,7 +12,8 @@ angular
 	.module('sachinRtApp', [
 		'ngAnimate',
 		'ui.router',
-		'ng-fusioncharts'
+		'ng-fusioncharts',
+		'ui-rangeSlider'
 	])
 	.run(function($rootScope, $state, csvProcessor) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams) {

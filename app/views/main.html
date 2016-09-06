@@ -41,17 +41,21 @@
     {{totalCatches}}</span>
   <span class="quote">{{sachinQuotes[2]}}</span>
 </div>
-<div class="batting-stat">
+<div class="bowling-stat">
   <fusioncharts width="100%" height="400" type="column2d" dataFormat='json' dataSource="{{wickets}}"></fusioncharts>
 </div>
 <div class="home-wrap">
-  <span>Total 100s :
-    {{totalHundreds}}</span>
-  <span>Total 50s :
-    {{totalFifties}}</span>
-  <span>Highest Score : 200</span>
   <span class="quote">{{sachinQuotes[3]}}</span>
 </div>
-<!-- <div class="batting-stat">
-  <fusioncharts width="100%" height="400" type="pie2d" dataFormat='json' dataSource="{{scorePerInnings}}"></fusioncharts>
-</div> -->
+<div class="">
+  <fusioncharts width="100%" height="400" type="scrollcolumn2d" dataFormat='json' dataSource="{{runsByVenue}}"></fusioncharts>
+  <div class="slider">
+    <div range-slider min="1989" max="2012" step="1" model-min="year.min" model-max="year.max" on-handle-up="rangeChange()"></div>
+    <div class="slider-label">
+      <span>{{year.min}}</span>
+      <span>{{year.max}}</span>
+    </div>
+  </div>
+</div>
+<div class="home-wrap">
+</div>

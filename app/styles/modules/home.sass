@@ -22,6 +22,8 @@
 		background-image: url('../images/sachin3.jpg')
 	&:nth-child(7)
 		background-image: url('../images/sachin4.jpg')
+	&:nth-child(9)
+		background-image: url('../images/sachin5.jpg')
 	img
 		width: 50%
 		border-radius: 100px
@@ -58,7 +60,7 @@
 		margin-top: 10px
 		position: absolute
 		z-index: 10
-		width: 100px
+		width: 150px
 		right: 5%
 		top: 0
 	input
@@ -81,7 +83,7 @@
 	.select-options
 		position: absolute
 		border: 1px solid #ddd
-		width: 111px
+		width: 163px
 		z-index: 12
 		background-color: $white
 		div
@@ -89,3 +91,14 @@
 			cursor: pointer
 			&:hover
 				background-color: #cecece
+
+.slider
+	position: relative
+.slider-label
+	span
+		position: absolute
+		top: 30px
+		&:first-child
+			left: 15%
+		&:last-child
+			right: 15%
