@@ -7,12 +7,12 @@
   <span class="quote">{{sachinQuotes[0]}}</span>
 </div>
 <div class='runs-chart'>
-  <div class="dropdown">
+  <div class="dropdown" ng-click="showGraphType = !showGraphType">
     <label for="runs">Score's Basis :</label>
-    <input type="text" name="score basis" id="runs" ng-model="runsPerYear.chart.subcaption" disabled autocomplete="off" required>
-    <i class="fa fa-angle-down" ng-click="showGraphType = true" ng-show="!showGraphType"></i>
-    <i class="fa fa-angle-up" ng-click="showGraphType = false" ng-show="showGraphType"></i>
-    <div class="select-options ng-hide" ng-show="showGraphType" ng-click="showGraphType = false">
+    <input type="text" name="score basis" id="runs" ng-model="runsScored.chart.subcaption" disabled autocomplete="off" required>
+    <i class="fa fa-angle-down" ng-show="!showGraphType"></i>
+    <i class="fa fa-angle-up" ng-show="showGraphType"></i>
+    <div class="select-options ng-hide" ng-show="showGraphType">
       <div ng-click="changeScoreBasis('overall')">
         Overall
       </div>
@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  <fusioncharts width="100%" height="400" type="line" dataFormat='json' dataSource="{{runsPerYear}}"></fusioncharts>
+  <fusioncharts width="100%" height="400" type="line" dataFormat='json' dataSource="{{runsScored}}"></fusioncharts>
 </div>
 <div class="home-wrap">
   <span>Total 100s :
@@ -45,12 +45,13 @@
   <fusioncharts width="100%" height="400" type="column2d" dataFormat='json' dataSource="{{wickets}}"></fusioncharts>
 </div>
 <div class="home-wrap">
-    <span>Average : {{average}}</span>
-    <span>Not Out : {{notOutCount}}</span>
+  <span>Average :
+    {{average}}</span>
+  <span>Not Out :
+    {{notOutCount}}</span>
   <span class="quote">{{sachinQuotes[3]}}</span>
 </div>
 <div class="">
-  <fusioncharts width="100%" height="400" type="scrollcolumn2d" dataFormat='json' dataSource="{{runsByVenue}}"></fusioncharts>
   <div class="slider">
     <div range-slider min="1989" max="2012" step="1" model-min="year.min" model-max="year.max" on-handle-up="rangeChange()"></div>
     <div class="slider-label">
@@ -58,6 +59,6 @@
       <span>{{year.max}}</span>
     </div>
   </div>
+  <fusioncharts width="100%" height="400" type="scrollcolumn2d" dataFormat='json' dataSource="{{runsByVenue}}"></fusioncharts>
 </div>
-<div class="home-wrap">
-</div>
+<div class="home-wrap"></div>
