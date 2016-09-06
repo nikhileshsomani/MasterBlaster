@@ -33,14 +33,7 @@ angular
 	.config(function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/');
 		$stateProvider
-			.state('root', {
-				views: {
-					'content': {
-						template: '<div ui-view></div>'
-					}
-				}
-			})
-			.state('root.home', {
+			.state('home', {
 				url: '/',
 				templateUrl: 'views/main.html',
 				controller: 'MainCtrl'

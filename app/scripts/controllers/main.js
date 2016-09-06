@@ -16,6 +16,7 @@ angular.module('sachinRtApp')
 			years = [],
 			venues = [];
 
+		$rootScope.loadingCSV = true;
 		$scope.runsPerYear = {};
 		$scope.totalRuns = null;
 		$scope.totalMatches = stats.length;
@@ -23,11 +24,18 @@ angular.module('sachinRtApp')
 		$scope.totalCatches = null;
 		$scope.totalHundreds = null;
 		$scope.totalFifties = null;
+		$scope.average = null;
+		$scope.notOutCount = null;
+		$scope.totalInnings = null;
 		$scope.runsType = 'Yearly';
 		$scope.year = {
 			min: 1995,
 			max: 2005
 		};
+
+		$timeout(function() {
+			$rootScope.loadingCSV = false;
+		}, 3000);
 
 		$scope.sachinQuotes = ['There are two kind of batsmen in the world. One Sachin Tendulkar. Two all the others. - Andy Flower',
 			'I have seen God, he bats at no. 4 for India. - Mathew Hayden',
@@ -48,6 +56,7 @@ angular.module('sachinRtApp')
 			scoreByHundreds = [],
 			scoreByFifties = [],
 			scoreByRest = [];
+		// notOutCount = null;
 
 		var setRunsPerYear = function(el) {
 			var yearIdx = years.indexOf(el.date.slice(-4));
@@ -74,6 +83,10 @@ angular.module('sachinRtApp')
 				yearIdx = years.length - 1;
 			}
 			if (!isNaN(el.batting_score)) {
+				if (el.notOut) {
+					$scope.notOutCount++;
+				}
+				$scope.totalInnings++;
 				runsPerYear[yearIdx].value += el.batting_score;
 				cumulativeRunsPerYear[yearIdx].value += el.batting_score;
 				runsPerYear[yearIdx].displayValue = (parseInt(runsPerYear[yearIdx].displayValue) + 1).toString() + ' Innings';
@@ -176,6 +189,7 @@ angular.module('sachinRtApp')
 			setWickets(el);
 			setRunsByVenue(el);
 			$timeout(function() {
+				$scope.average = ($scope.totalRuns / ($scope.totalInnings - $scope.notOutCount)).toFixed(2);
 				$scope.runsByVenue.categories = [{
 					'category': venueObject,
 				}];
@@ -352,7 +366,7 @@ angular.module('sachinRtApp')
 				'showBorder': '0',
 				'showShadow': '0',
 				'bgColor': '#ffffff',
-				'paletteColors': '#f96331,#48CB92',
+				'paletteColors': '#0075c2,#1aaf5d',
 				'scrollPadding': 10,
 				'showCanvasBorder': '0',
 				'showAlternateHGridColor': '0',
@@ -361,10 +375,10 @@ angular.module('sachinRtApp')
 				'scrollheight': '10',
 				'numVisiblePlot': '12',
 				'showHoverEffect': '1',
-				// 'loadMessage': 'loading...'
+				'toolTipBgColor': '#000',
+				'toolTipColor': '#fff',
+				'toolTipBorderAlpha': '10',
+				'showToolTipShadow': '1'
 			}
 		};
-
-		// $scope.rangeChange();
-
 	});
