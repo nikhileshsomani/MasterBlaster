@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc overview
  * @name sachinRtApp
@@ -16,6 +14,7 @@ angular
 		'ui-rangeSlider'
 	])
 	.run(function($rootScope, $state, csvProcessor) {
+		// although this application has only one state, but making sure that we have our csv file loaded before going to any state.
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
 			if (!$rootScope.stats) {
 				$rootScope.loadingCSV = true;
@@ -25,7 +24,7 @@ angular
 					$rootScope.loadingCSV = false;
 					$state.go(toState.name, toParams);
 				}).catch(function() {
-
+					alert('error! loading csv');
 				});
 			}
 		});

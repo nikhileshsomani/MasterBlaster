@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc function
  * @name sachinRtApp.controller:MainCtrl
@@ -12,12 +10,8 @@ angular.module('sachinRtApp')
 
 		var stats = $rootScope.stats;
 
-		var countries = [],
-			years = [],
-			venues = [];
-
 		$rootScope.loadingCSV = true;
-		$scope.runsPerYear = {};
+		$scope.runsScored = {};
 		$scope.totalRuns = null;
 		$scope.totalMatches = stats.length;
 		$scope.totalWickets = null;
@@ -33,6 +27,7 @@ angular.module('sachinRtApp')
 			max: 2005
 		};
 
+		//external library fusion chart is being used for graphical analysis. The page will be load once the fusion is done generating charts.
 		$timeout(function() {
 			$rootScope.loadingCSV = false;
 		}, 3000);
@@ -43,8 +38,10 @@ angular.module('sachinRtApp')
 			'Gentelmen,he is the best batsman I have seen in my life.And unlike most of you, I have seen Bradman bat. - John Woodcock'
 		];
 
-
-		var countriesObject = [],
+		var countries = [],
+			years = [],
+			venues = [],
+			countriesObject = [],
 			venueObject = [],
 			runsPerYear = [],
 			cumulativeRunsPerYear = [],
@@ -56,8 +53,8 @@ angular.module('sachinRtApp')
 			scoreByHundreds = [],
 			scoreByFifties = [],
 			scoreByRest = [];
-		// notOutCount = null;
 
+		// creating data for fusionchart -- runs scored per year and cumulative scoring throught career
 		var setRunsPerYear = function(el) {
 			var yearIdx = years.indexOf(el.date.slice(-4));
 			if (yearIdx < 0) {
@@ -94,6 +91,7 @@ angular.module('sachinRtApp')
 			}
 		};
 
+		// creating data for fusionchart -- runs scored against each country
 		var setRunsPerCountry = function(el) {
 			var countryIdx = countries.indexOf(el.opposition);
 			if (countryIdx < 0) {
@@ -131,6 +129,7 @@ angular.module('sachinRtApp')
 			}
 		};
 
+		// creating data for fusionchart -- wickets taken
 		var setWickets = function(el) {
 			if (!isNaN(el.wickets)) {
 				wicketsPerYear.push({
@@ -141,6 +140,7 @@ angular.module('sachinRtApp')
 			}
 		};
 
+		// creating data for fusionchart -- runs scored on each venue
 		var setRunsByVenue = function(el) {
 			var year = el.date.slice(-4);
 			if (year >= $scope.year.min && year <= $scope.year.max) {
@@ -174,6 +174,7 @@ angular.module('sachinRtApp')
 			}
 		};
 
+		// looping thorough the stats to set data for the chart
 		stats.forEach(function(el) {
 			if (!isNaN(el.batting_score)) {
 				$scope.totalRuns += el.batting_score;
@@ -203,16 +204,18 @@ angular.module('sachinRtApp')
 			}, 0);
 		});
 
+		//scope function to change runs showed - yealy or cumulative
 		$scope.changeScoreBasis = function(type) {
 			if (type === 'overall') {
-				$scope.runsPerYear.chart.subcaption = 'Overall';
-				$scope.runsPerYear.data = cumulativeRunsPerYear;
+				$scope.runsScored.chart.subcaption = 'Overall';
+				$scope.runsScored.data = cumulativeRunsPerYear;
 			} else {
-				$scope.runsPerYear.chart.subcaption = 'Yearly';
-				$scope.runsPerYear.data = runsPerYear;
+				$scope.runsScored.chart.subcaption = 'Yearly';
+				$scope.runsScored.data = runsPerYear;
 			}
 		};
 
+		// scope function which show runs scored in each venue according to the selected year-range
 		$scope.rangeChange = function() {
 			venues = [];
 			venueObject = [];
@@ -235,12 +238,13 @@ angular.module('sachinRtApp')
 			}, 0);
 		};
 
+		// fusion chart object to show runs scored against each country
 		$scope.countryWiseScore = {
 			'chart': {
 				'caption': 'Sachin\'s Score against different countries',
 				'xaxisname': 'Countries',
 				'yaxisname': 'Runs',
-				'paletteColors': '#E53935,#D81B60,#5C6BC0,#D4E157',
+				'paletteColors': '#3D348B,#7678ED,#F7B801,#F18701',
 				'plotToolText': 'Country: $label <br> Total Runs: $unformattedSum',
 				'toolTipBgColor': '#000',
 				'toolTipColor': '#fff',
@@ -285,7 +289,8 @@ angular.module('sachinRtApp')
 			}]
 		};
 
-		$scope.runsPerYear = {
+		// fusion chart object to show runs scored (yearly and cumulative)
+		$scope.runsScored = {
 			'chart': {
 				'caption': 'SACHIN TENDULKAR\'S ODI CAREER(Batting)',
 				'subcaption': 'Yearly',
@@ -323,6 +328,7 @@ angular.module('sachinRtApp')
 			'data': runsPerYear,
 		};
 
+		// fusion chart object to show wickets stats
 		$scope.wickets = {
 			'chart': {
 				'caption': 'SACHIN TENDULKAR\'S ODI CAREER(Bowling)',
@@ -355,6 +361,7 @@ angular.module('sachinRtApp')
 			'data': wicketsPerYear
 		};
 
+		// fusion chart object for showing runs by venue
 		$scope.runsByVenue = {
 			'chart': {
 				'caption': 'Batting statistics by venue',
@@ -364,11 +371,12 @@ angular.module('sachinRtApp')
 				'showLimits': 0,
 				'formatNumberScale': 0,
 				'showBorder': '0',
-				'showShadow': '0',
 				'bgColor': '#ffffff',
-				'paletteColors': '#0075c2,#1aaf5d',
+				'paletteColors': '#42F2F7,#46ACC2',
+				'showShadow': '0',
 				'scrollPadding': 10,
 				'showCanvasBorder': '0',
+				'plotFillAlpha' :'100',
 				'showAlternateHGridColor': '0',
 				'lineThickness': '3',
 				'flatScrollBars': '1',

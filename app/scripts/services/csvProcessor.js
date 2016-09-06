@@ -1,4 +1,3 @@
-'use strict';
 
 /**
  * @ngdoc service
@@ -10,6 +9,8 @@
 angular.module('sachinRtApp')
 	.service('csvProcessor', function($http, $q) {
 		// AngularJS will instantiate a singleton by calling "new" on this function
+
+		//reading csv file
 		this.readCSV = function() {
 			return $http({
 				url: '../sachin.csv',
@@ -17,6 +18,7 @@ angular.module('sachinRtApp')
 			});
 		};
 
+		// processing csv file and returning an array of all the statistics
 		this.processCSV = function() {
 			var deferred = $q.defer();
 			this.readCSV().then(function(response) {
